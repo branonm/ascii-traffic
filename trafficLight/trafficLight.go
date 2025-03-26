@@ -90,20 +90,21 @@ done:
 				break done
 			}
 			fmt.Println(redLight)
-			fmt.Println("\nPress CTRL + x for settings")
+			fmt.Println("\nPress CTRL + C to exit")
 			time.Sleep(redLit)
 			if err := t.clearScreen(); err != nil {
 				runErr = fmt.Errorf("recieved error : %s, exiting", err)
 				break done
 			}
 			fmt.Println(yellowLight)
-			fmt.Println("\nPress CTRL + x for settings")
+			fmt.Println("\nPress CTRL + C to exit")
 			time.Sleep(yellowLit)
 			if err := t.clearScreen(); err != nil {
 				runErr = fmt.Errorf("recieved error : %s, exiting", err)
 				break done
 			}
 			fmt.Println(greenLight)
+			fmt.Println("\nPress CTRL + C to exit")
 			time.Sleep(greenLit)
 		}
 	}
