@@ -25,7 +25,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	ctx := context.Background()
+	ctx, cancel := context.WithCancel(context.Background())
 
 	go func(t trafficLight.TrafficLight, c context.Context) {
 		t.Run(c)
@@ -38,7 +38,7 @@ func main() {
 
 	switch <-sigChan {
 	case os.Interrupt:
-		ctx.Done()
+		cancel()
 		fmt.Println("Exiting Traffic Light Simulator")
 	default:
 		fmt.Println("Received unknown signal, exiting")
