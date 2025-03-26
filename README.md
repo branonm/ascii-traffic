@@ -21,4 +21,7 @@ Code Notes:
 
   I added limits on how long each color can remain lit for. These limits are completely arbitrary. Red and green can be 
   as short as 5 seconds and as long as 10 minutes. Yellow can be between 5 and 30 seconds.
+
+  This will only work with UNIX style shells. On Windows the command to clear the terminal is different and it wasn't 
+  included
   
