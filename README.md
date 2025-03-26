@@ -18,4 +18,7 @@ Code Notes:
   The Run method takes a context. This context is used to break the infinite loop in the method for clean shutdown. 
   I also wired in the ability to dynamically update the lit times for each light via the context. As this wasn't 
   a requirement I didn't fully wire it in and included it only to 'future-proof' the code
+
+  I added limits on how long each color can remain lit for. These limits are completely arbitrary. Red and green can be 
+  as short as 5 seconds and as long as 10 minutes. Yellow can be between 5 and 30 seconds.
   
