@@ -17,19 +17,20 @@ func main() {
 
 	redLit, yellowLit, greenLit := getLitFromInput()
 
-	ryg, err := trafficLight.NewTrafficLight(time.Duration(redLit)*time.Second, time.Duration(yellowLit)*time.Second, time.Duration(greenLit)*time.Second)
+	ryg, err := trafficLight.NewTrafficLight(
+		time.Duration(redLit)*time.Second,
+		time.Duration(yellowLit)*time.Second,
+		time.Duration(greenLit)*time.Second,
+	)
 	if err != nil {
 		log.Fatal(err)
 	}
 	ctx := context.Background()
 
-	go func(t *trafficLight.TrafficLight, c context.Context) {
-		err := t.Run(c)
-		if err != nil {
-			log.Fatal(err)
-		}
+	go func(t trafficLight.TrafficLight, c context.Context) {
+		t.Run(c)
 		return
-	}(ryg, ctx)
+	}(ryg, ctx) // passing *TrafficLightASCII as a TrafficLight
 
 	sigChan := make(chan os.Signal, 1)
 
@@ -37,6 +38,7 @@ func main() {
 
 	switch <-sigChan {
 	case os.Interrupt:
+		ctx.Done()
 		fmt.Println("Exiting Traffic Light Simulator")
 	default:
 		fmt.Println("Received unknown signal, exiting")
@@ -44,10 +46,13 @@ func main() {
 
 }
 
+// getLitFromInput prompts the user for the length each color light should be lit for
 func getLitFromInput() (int, int, int) {
-	var redLit int
-	var yellowLit int
-	var greenLit int
+	var (
+		redLit    int
+		yellowLit int
+		greenLit  int
+	)
 	reader := bufio.NewReader(os.Stdin)
 	for {
 		fmt.Print("How long should the red light be lit in seconds: ")
